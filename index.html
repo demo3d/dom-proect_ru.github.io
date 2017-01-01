@@ -24,14 +24,10 @@
     
     center: [-74.50, 40], // starting position
     bearing: 0,
-    pitch: 0,
+    pitch: 60,
     hash: true,
-    attributionControl: false,
     zoom: 13 // starting zoom
 });
-    map.addControl(new mapboxgl.AttributionControl({
-        compact: true
-    }));
     var nav = new mapboxgl.NavigationControl();
     map.addControl(nav, 'top-left');
     //map.addControl(new mapboxgl.GeolocateControl({
@@ -39,8 +35,6 @@
     //        enableHighAccuracy: true
     //    }
     //}));
-
-
     
 navigator.geolocation.watchPosition(
   function(position) {
