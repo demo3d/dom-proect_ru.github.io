@@ -21,47 +21,60 @@
 
 <div id='map'></div>
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiamVzc3RlbGZvcmQiLCJhIjoiY2l3M3d6OTlrMDA0aTJ6cXNraHByMzdiZyJ9.MAfasjh0CP0D6_OHAYAGaw';
-    var map = new mapboxgl.Map({
-    attributionControl: true,
-    container: 'map', // container id
-    style: 'mapbox://styles/mapbox/streets-v9?optimize=true', //stylesheet location
+    var token = 'pk.eyJ1IjoiaW5mb2RpcnNldmVuIiwiYSI6ImNpeGYydDF3eDAwNXEydG1nMGZpb3BkbHUifQ.MfksQpMsResB7x7On2XtiA';
+    var map = L.map('map').setView([38.912753, -77.032194], 15);
+    L.marker([38.912753, -77.032194])
+        .bindPopup("Hello <b>Leaflet GL</b>!<br>Whoa, it works!")
+        .addTo(map)
+        .openPopup();
+    var gl = L.mapboxGL({
+        accessToken: token,
+        style: 'mapbox://styles/mapbox/bright-v8'
+    }).addTo(map);    
+    
+//     var map = new mapboxgl.Map({
+//     attributionControl: true,
+//     container: 'map', // container id
+//     style: 'mapbox://styles/mapbox/streets-v9?optimize=true', //stylesheet location
 //    style: 'mapbox://styles/mapbox/satellite-streets-v9?optimize=true', //stylesheet location
 //    style: 'mapbox://styles/mapbox/outdoors-v9', //stylesheet location
     
-    center: [-74.50, 40], // starting position
-    bearing: 0,
-    pitch: 60,
-    hash: true,
-    image: {
-      "type": "image",
-      "url": "radar.gif",
-      "coordinates": [
-          [-80.425, 46.437],
-          [-71.516, 46.437],
-          [-71.516, 37.936],
-          [-80.425, 37.936]
-      ]
-    },
-    zoom: 13 // starting zoom
-});
-    var nav = new mapboxgl.NavigationControl();
-    map.addControl(nav, 'top-left');
+//     center: [-74.50, 40], // starting position
+//     bearing: 0,
+//     pitch: 60,
+//     hash: true,
+//     image: {
+//       "type": "image",
+//       "url": "radar.gif",
+//       "coordinates": [
+//           [-80.425, 46.437],
+//           [-71.516, 46.437],
+//           [-71.516, 37.936],
+//           [-80.425, 37.936]
+//       ]
+//     },
+//     zoom: 13 // starting zoom
+// });
+
+    
+//     var nav = new mapboxgl.NavigationControl();
+//     map.addControl(nav, 'top-left');
+
     //map.addControl(new mapboxgl.GeolocateControl({
     //positionOptions: {
     //        enableHighAccuracy: true
     //    }
     //}));
-map.addControl(new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: false
-    }
-}));
+
+// map.addControl(new mapboxgl.GeolocateControl({
+//     positionOptions: {
+//         enableHighAccuracy: false
+//     }
+// }));
 
 function onMapClick(e) {
     console.log("You clicked the map at " + e);
 }
-
 map.on('click', onMapClick);
     
 navigator.geolocation.watchPosition(
