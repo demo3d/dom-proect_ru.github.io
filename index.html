@@ -26,9 +26,10 @@
     bearing: 0,
     pitch: 0,
     hash: true,
-    {attributionControl: false},
+    attributionControl: false,
     zoom: 13 // starting zoom
-}).addControl(new mapboxgl.AttributionControl({
+});
+    map.addControl(new mapboxgl.AttributionControl({
         compact: true
     }));
     var nav = new mapboxgl.NavigationControl();
