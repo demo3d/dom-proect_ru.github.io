@@ -27,6 +27,13 @@
 
         .mapboxgl-popup {
             max-width: 200px;
+        }    
+        .marker {
+            display: block;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
         }        
     </style>
 </head>
@@ -49,100 +56,190 @@
     </div>    
 
     <div id='map'></div>
+<script>    
+    
+  //Put your Mapbox Public Access token here
+  mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImdQMzI4WjgifQ.d-Uyr7NBjrJVz9z82uk5Xg';
+
+  //Load a new map in the 'map' HTML div
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v9',
+    center: [-79.3832, 43.6512],
+    zoom: 13
+  });
+
+  // Store an array of circle-color ramps for dds
+  var colorList = [
+    [1614, '#D49A66'],
+    [4132, '#A29354'],
+    [8056, '#738856'],
+    [13919, '#50795F'],
+    [20464, '#416562'],
+    [34615, '#44505A']
+  ];
+
+  //Load the vector tile source from our Mapbox Pedestrian traffic example
+  map.on('load', function() {
+    map.addSource('pedestrian-volume', {
+      type: 'vector',
+      url: 'mapbox://mapbox.dvrdhs7l' //Your Mapbox tileset Map ID
+    });
+
+    //Add the circle layer to the map
+    map.addLayer({
+      'id': 'pedestrian_volume',
+      'source': 'pedestrian-volume', //name of source
+      'source-layer': 'Signalized_Intersection_Traff-4ypaqa', //name of tileset
+      'type': 'circle',
+      'paint': {
+        //Add data-driven styles for circle-color
+        'circle-color': {
+          property: '8HrPedVol',
+          type: 'interval',
+          stops: colorList
+        },
+        //Add data-driven styles for circle radius
+        'circle-radius': 10,
+        'circle-opacity': 0.8
+      }
+    });
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.Navigation({
+      'position': 'top-left'
+    }));
+
+    // When a click event occurs near a place, open a popup at the location of
+    // the feature, with description HTML from its properties.
+    map.on('click', function(e) {
+      var features = map.queryRenderedFeatures(e.point, {
+        layers: ['pedestrian_volume']
+      });
+
+      if (!features.length) {
+        return;
+      }
+
+      var feature = features[0];
+
+      // Populate the popup and set its coordinates
+      // based on the feature found.
+      var popup = new mapboxgl.Popup()
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML('<div id="popup" class="popup" style="z-index: 10;"> <h5> Detail: </h5>' +
+          '<ul class="list-group">' +
+          '<li class="list-group-item"> Date: ' + feature.properties['Count Date'] + " </li>" +
+          '<li class="list-group-item"> Vehicle Count: ' + feature.properties['8HrVehVol'] + " </li>" +
+          '<li class="list-group-item"> Pedestrian Count: ' + feature.properties['8HrPedVol'] + " </li>" +
+          '</ul> </div>')
+        .addTo(map);
+    });
+
+    // Use the same approach as above to indicate that the symbols are clickable
+    // by changing the cursor style to 'pointer'.
+    map.on('mousemove', function(e) {
+      var features = map.queryRenderedFeatures(e.point, {
+        layers: ['pedestrian_volume']
+      });
+      map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+    });
+  });
+  </script>
 <script>
-    var token = 'pk.eyJ1IjoiaW5mb2RpcnNldmVuIiwiYSI6ImNpeGYydDF3eDAwNXEydG1nMGZpb3BkbHUifQ.MfksQpMsResB7x7On2XtiA';
-//     mapboxgl.accessToken = 'pk.eyJ1IjoiamVzc3RlbGZvcmQiLCJhIjoiY2l3M3d6OTlrMDA0aTJ6cXNraHByMzdiZyJ9.MAfasjh0CP0D6_OHAYAGaw';
-    mapboxgl.accessToken = token;
+    
+//     var token = 'pk.eyJ1IjoiaW5mb2RpcnNldmVuIiwiYSI6ImNpeGYydDF3eDAwNXEydG1nMGZpb3BkbHUifQ.MfksQpMsResB7x7On2XtiA';
+// //     mapboxgl.accessToken = 'pk.eyJ1IjoiamVzc3RlbGZvcmQiLCJhIjoiY2l3M3d6OTlrMDA0aTJ6cXNraHByMzdiZyJ9.MAfasjh0CP0D6_OHAYAGaw';
+//     mapboxgl.accessToken = token;
 
-    var map = new mapboxgl.Map({
-    attributionControl: true,
-    container: 'map', // container id
-    style: 'mapbox://styles/mapbox/bright-v9?optimize=true', //stylesheet location streets
+//     var map = new mapboxgl.Map({
+//     attributionControl: true,
+//     container: 'map', // container id
+//     style: 'mapbox://styles/mapbox/bright-v9?optimize=true', //stylesheet location streets
         
-//    style: 'mapbox://styles/mapbox/satellite-streets-v9?optimize=true', //stylesheet location
-//    style: 'mapbox://styles/mapbox/outdoors-v9', //stylesheet location
-    center: [-74.50, 40], // starting position
-    bearing: 0,
-    pitch: 60,
-    hash: true,
-//     image: {
-//       "type": "image",
-//       "url": "radar.gif",
-//       "coordinates": [
-//           [-80.425, 46.437],
-//           [-71.516, 46.437],
-//           [-71.516, 37.936],
-//           [-80.425, 37.936]
-//       ]
-//     },
-    zoom: 13 // starting zoom
-});
+// //    style: 'mapbox://styles/mapbox/satellite-streets-v9?optimize=true', //stylesheet location
+// //    style: 'mapbox://styles/mapbox/outdoors-v9', //stylesheet location
+//     center: [-74.50, 40], // starting position
+//     bearing: 0,
+//     pitch: 60,
+//     hash: true,
+// //     image: {
+// //       "type": "image",
+// //       "url": "radar.gif",
+// //       "coordinates": [
+// //           [-80.425, 46.437],
+// //           [-71.516, 46.437],
+// //           [-71.516, 37.936],
+// //           [-80.425, 37.936]
+// //       ]
+// //     },
+//     zoom: 13 // starting zoom
+// });
 
-var nav = new mapboxgl.NavigationControl();
-map.addControl(nav, 'top-left');
+// var nav = new mapboxgl.NavigationControl();
+// map.addControl(nav, 'top-left');
 
-map.addControl(new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    }
-}));
+// map.addControl(new mapboxgl.GeolocateControl({
+//     positionOptions: {
+//         enableHighAccuracy: true
+//     }
+// }));
 
-map.on('load', function() {
-//     basic
-    console.log('load');
-//   map.addSource('terrain-data', {
-//     type: 'vector',
-//     url: 'mapbox://mapbox.mapbox-terrain-v2'
-//   });
-});    
+// map.on('load', function() {
+// //     basic
+//     console.log('load');
+// //   map.addSource('terrain-data', {
+// //     type: 'vector',
+// //     url: 'mapbox://mapbox.mapbox-terrain-v2'
+// //   });
+// });    
     
-function onMapClick(e) {
-    console.log("You clicked the map at " + e);
-}
-map.on('click', onMapClick);
+// function onMapClick(e) {
+//     console.log("You clicked the map at " + e);
+// }
+// map.on('click', onMapClick);
     
-navigator.geolocation.watchPosition(
-  function(position) {
-    var long = position.coords.longitude;
-    var lat = position.coords.latitude;
-    map.setCenter([long, lat]);
-  },
-  console.error.bind(console),
-  {enableHighAccuracy: true}
-);
+// navigator.geolocation.watchPosition(
+//   function(position) {
+//     var long = position.coords.longitude;
+//     var lat = position.coords.latitude;
+//     map.setCenter([long, lat]);
+//   },
+//   console.error.bind(console),
+//   {enableHighAccuracy: true}
+// );
 
 
-var layerList = document.getElementById('menu');
-var inputs = layerList.getElementsByTagName('input');
+// var layerList = document.getElementById('menu');
+// var inputs = layerList.getElementsByTagName('input');
 
-function switchLayer(layer) {
-    var layerId = layer.target.id;
-    map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9');
-}
+// function switchLayer(layer) {
+//     var layerId = layer.target.id;
+//     map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9');
+// }
 
-for (var i = 0; i < inputs.length; i++) {
-    inputs[i].onclick = switchLayer;
-}
+// for (var i = 0; i < inputs.length; i++) {
+//     inputs[i].onclick = switchLayer;
+// }
 
     
-// var popup1 = new mapboxgl.Popup({closeOnClick: true})
-//     .setLngLat([50, 127])
-//     .setHTML('<h1>Беседка на набережной!</h1>')
+// // var popup1 = new mapboxgl.Popup({closeOnClick: true})
+// //     .setLngLat([50, 127])
+// //     .setHTML('<h1>Беседка на набережной!</h1>')
+// //     .addTo(map);
+
+// // create the popup
+// var popup2 = new mapboxgl.Popup({offset:[0, 30]})
+//     .setText('Construction on the Washington Monument began in 1848.');
+
+// // create DOM element for the marker
+// var el = document.createElement('div');
+// el.id = 'marker';
+
+// // create the marker
+// new mapboxgl.Marker(el, {offset:[-25, -25]})
+//     .setLngLat([50, 127.50])
+//     .setPopup(popup2) // sets a popup on this marker
 //     .addTo(map);
-
-// create the popup
-var popup2 = new mapboxgl.Popup({offset:[0, 30]})
-    .setText('Construction on the Washington Monument began in 1848.');
-
-// create DOM element for the marker
-var el = document.createElement('div');
-el.id = 'marker';
-
-// create the marker
-new mapboxgl.Marker(el, {offset:[-25, -25]})
-    .setLngLat([50, 127.50])
-    .setPopup(popup2) // sets a popup on this marker
-    .addTo(map);
     
 </script>
 
