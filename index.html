@@ -131,7 +131,7 @@ for (var i = 0; i < inputs.length; i++) {
 //     .addTo(map);
 
 // create the popup
-var popup2 = new mapboxgl.Popup({offset:[51, 128]})
+var popup2 = new mapboxgl.Popup({offset:[0, 30]})
     .setText('Construction on the Washington Monument began in 1848.');
 
 // create DOM element for the marker
@@ -140,7 +140,7 @@ el.id = 'marker';
 
 // create the marker
 new mapboxgl.Marker(el, {offset:[-25, -25]})
-    .setLngLat([50.25, -37.52])
+    .setLngLat([-74.50, 40])
     .setPopup(popup2) // sets a popup on this marker
     .addTo(map);
     
