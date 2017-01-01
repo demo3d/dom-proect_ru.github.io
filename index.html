@@ -28,11 +28,13 @@
     hash: true,
     zoom: 13 // starting zoom
 });
-    map.addControl(new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    }
-}));
+    var nav = new mapboxgl.NavigationControl();
+    map.addControl(nav, 'top-left');
+    //map.addControl(new mapboxgl.GeolocateControl({
+    //positionOptions: {
+    //        enableHighAccuracy: true
+    //    }
+    //}));
 
     function HelloWorldControl() { }
 
