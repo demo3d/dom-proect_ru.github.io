@@ -17,6 +17,7 @@
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiamVzc3RlbGZvcmQiLCJhIjoiY2l3M3d6OTlrMDA0aTJ6cXNraHByMzdiZyJ9.MAfasjh0CP0D6_OHAYAGaw';
     var map = new mapboxgl.Map({
+    attributionControl: true,
     container: 'map', // container id
     style: 'mapbox://styles/mapbox/streets-v9?optimize=true', //stylesheet location
 //    style: 'mapbox://styles/mapbox/satellite-streets-v9?optimize=true', //stylesheet location
@@ -35,6 +36,12 @@
     //        enableHighAccuracy: true
     //    }
     //}));
+map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    }
+}));
+    
     
 navigator.geolocation.watchPosition(
   function(position) {
