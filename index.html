@@ -8,8 +8,8 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet' />
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+<!--     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" /> -->
+<!--     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script> -->
 
 
     <style>
@@ -139,7 +139,7 @@ var el = document.createElement('div');
 el.id = 'marker';
 
 // create the marker
-new mapboxgl.Marker(el, {offset:[51, 126]})
+new mapboxgl.Marker(el, {offset:[-25, -25]})
     .setLngLat([51, 128])
     .setPopup(popup2) // sets a popup on this marker
     .addTo(map);
