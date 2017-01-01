@@ -14,7 +14,20 @@
 
     <style>
         body { margin:0; padding:0; }
-         #map { position:absolute; top: 2em; bottom: 1em; width:100%; }
+        #map { position:absolute; top: 2em; bottom: 1em; width:100%; }
+
+        #marker {
+            background-image: url('https://www.mapbox.com/mapbox-gl-js/assets/washington-monument.jpg');
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .mapboxgl-popup {
+            max-width: 200px;
+        }        
     </style>
 </head>
 <body>
@@ -112,13 +125,13 @@ for (var i = 0; i < inputs.length; i++) {
 }
 
     
-    var popup = new mapboxgl.Popup({closeOnClick: true})
+var popup1 = new mapboxgl.Popup({closeOnClick: true})
     .setLngLat([50, 127])
     .setHTML('<h1>Беседка на набережной!</h1>')
     .addTo(map);
 
 // create the popup
-var popup = new mapboxgl.Popup({offset:[51, 128]})
+var popup2 = new mapboxgl.Popup({offset:[51, 128]})
     .setText('Construction on the Washington Monument began in 1848.');
 
 // create DOM element for the marker
@@ -126,9 +139,9 @@ var el = document.createElement('div');
 el.id = 'marker';
 
 // create the marker
-new mapboxgl.Marker(el, {offset:[-25, -25]})
+new mapboxgl.Marker(el, {offset:[51, 126]})
     .setLngLat([51, 128])
-    .setPopup(popup) // sets a popup on this marker
+    .setPopup(popup2) // sets a popup on this marker
     .addTo(map);
     
 </script>
