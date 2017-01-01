@@ -28,6 +28,11 @@
     hash: true,
     zoom: 13 // starting zoom
 });
+    map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    }
+}));
 
 navigator.geolocation.watchPosition(
   function(position) {
