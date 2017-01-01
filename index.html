@@ -59,7 +59,7 @@ map.addControl(new mapboxgl.GeolocateControl({
 }));
 
 function onMapClick(e) {
-    alert("You clicked the map at " + e.latlng);
+    console.log("You clicked the map at " + e);
 }
 
 map.on('click', onMapClick);
