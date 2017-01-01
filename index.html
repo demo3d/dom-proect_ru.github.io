@@ -26,8 +26,11 @@
     bearing: 0,
     pitch: 0,
     hash: true,
+    {attributionControl: false},
     zoom: 13 // starting zoom
-});
+}).addControl(new mapboxgl.AttributionControl({
+        compact: true
+    }));
     var nav = new mapboxgl.NavigationControl();
     map.addControl(nav, 'top-left');
     //map.addControl(new mapboxgl.GeolocateControl({
@@ -36,20 +39,7 @@
     //    }
     //}));
 
-    function HelloWorldControl() { }
 
-HelloWorldControl.prototype.onAdd = function(map) {
-    this._map = map;
-    this._container = document.createElement('div');
-    this._container.className = 'mapboxgl-ctrl';
-    this._container.textContent = 'Hello, world';
-    return this._container;
-};
-
-HelloWorldControl.prototype.onRemove() {
-     this._container.parentNode.removeChild(this._container);
-     this._map = undefined;
-};
     
 navigator.geolocation.watchPosition(
   function(position) {
