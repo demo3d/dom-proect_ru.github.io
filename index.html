@@ -110,7 +110,12 @@ function switchLayer(layer) {
 for (var i = 0; i < inputs.length; i++) {
     inputs[i].onclick = switchLayer;
 }
+
     
+    var popup = new mapboxgl.Popup({closeOnClick: true})
+    .setLngLat([50.25, 127.51])
+    .setHTML('<h1>Беседка на набережной!</h1>')
+    .addTo(map);
     
 </script>
 
