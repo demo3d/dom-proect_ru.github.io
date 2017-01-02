@@ -348,7 +348,7 @@ for (var i = 0; i < inputs.length; i++) {
 
 map.on('load', function () {
     // Add a GeoJSON source containing place coordinates and information.
-    map.addSource("places1", {
+    map.addSource("places", {
         "type": "geojson",
         "data": {
             "type": "FeatureCollection",
@@ -406,15 +406,15 @@ map.on('load', function () {
         }
     });
     // Add a layer showing the places.
-    map.addLayer({
-        "id": "places1",
-        "type": "symbol",
-        "source": "places",
-        "layout": {
-            "icon-image": "{icon}-15",
-            "icon-allow-overlap": true
-        }
-    });
+//     map.addLayer({
+//         "id": "places",
+//         "type": "symbol",
+//         "source": "places",
+//         "layout": {
+//             "icon-image": "{icon}-15",
+//             "icon-allow-overlap": true
+//         }
+//     });
 });
 // When a click event occurs near a place, open a popup at the location of
 // the feature, with description HTML from its properties.
