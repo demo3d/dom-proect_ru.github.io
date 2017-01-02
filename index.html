@@ -7,11 +7,6 @@
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet' />
-    <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
-
-<!--     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" /> -->
-<!--     <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script> -->
-
 
     <style>
         body { margin:0; padding:0; }
@@ -59,162 +54,6 @@
     <div id='map'></div>
 <script>    
 
-    
-    
-    
-//     (function main() {
-//     // Create enabled event
-//     function fireEnabledEvent() {
-//         // If gli exists, then we are already present and shouldn't do anything
-//         if (!window.gli) {
-//             setTimeout(function () {
-//                 var enabledEvent = document.createEvent("Event");
-//                 enabledEvent.initEvent("WebGLEnabledEvent", true, true);
-//                 document.dispatchEvent(enabledEvent);
-//             }, 0);
-//         } else {
-//             //console.log("WebGL Inspector already embedded on the page - disabling extension");
-//         }
-//     };
-
-//     // Grab the path root from the extension
-//     document.addEventListener("WebGLInspectorReadyEvent", function (e) {
-//         var pathElement = document.getElementById("__webglpathroot");
-//         if (window["gliloader"]) {
-//             gliloader.pathRoot = pathElement.innerText;
-//         } else {
-//             // TODO: more?
-//             window.gliCssUrl = pathElement.innerText + "gli.all.css";
-//         }
-//     }, false);
-
-//     // Rewrite getContext to snoop for webgl
-//     var originalGetContext = HTMLCanvasElement.prototype.getContext;
-//     if (!HTMLCanvasElement.prototype.getContextRaw) {
-//         HTMLCanvasElement.prototype.getContextRaw = originalGetContext;
-//     }
-//     HTMLCanvasElement.prototype.getContext = function () {
-//         var ignoreCanvas = this.internalInspectorSurface;
-//         if (ignoreCanvas) {
-//             return originalGetContext.apply(this, arguments);
-//         }
-
-//         var result = originalGetContext.apply(this, arguments);
-//         if (result == null) {
-//             return null;
-//         }
-
-//         var contextNames = ["moz-webgl", "webkit-3d", "experimental-webgl", "webgl", "3d"];
-//         var requestingWebGL = contextNames.indexOf(arguments[0]) != -1;
-//         if (requestingWebGL) {
-//             // Page is requesting a WebGL context!
-//             fireEnabledEvent(this);
-
-//             // If we are injected, inspect this context
-//             if (window.gli) {
-//                 if (gli.host.inspectContext) {
-//                     // TODO: pull options from extension
-//                     result = gli.host.inspectContext(this, result);
-//                     // NOTE: execute in a timeout so that if the dom is not yet
-//                     // loaded this won't error out.
-//                     window.setTimeout(function() {
-//                         var hostUI = new gli.host.HostUI(result);
-//                         result.hostUI = hostUI; // just so we can access it later for debugging
-//                     }, 0);
-//                 }
-//             }
-//         }
-
-//         return result;
-//     };
-// })();
-    
-//   //Put your Mapbox Public Access token here
-//   mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImdQMzI4WjgifQ.d-Uyr7NBjrJVz9z82uk5Xg';
-
-//   //Load a new map in the 'map' HTML div
-//   var map = new mapboxgl.Map({
-//     container: 'map',
-//     style: 'mapbox://styles/mapbox/dark-v9',
-//     center: [-79.3832, 43.6512],
-//     zoom: 13
-//   });
-
-//   // Store an array of circle-color ramps for dds
-//   var colorList = [
-//     [1614, '#D49A66'],
-//     [4132, '#A29354'],
-//     [8056, '#738856'],
-//     [13919, '#50795F'],
-//     [20464, '#416562'],
-//     [34615, '#44505A']
-//   ];
-
-//   //Load the vector tile source from our Mapbox Pedestrian traffic example
-//   map.on('load', function() {
-//     map.addSource('pedestrian-volume', {
-//       type: 'vector',
-//       url: 'mapbox://mapbox.dvrdhs7l' //Your Mapbox tileset Map ID
-//     });
-
-//     //Add the circle layer to the map
-//     map.addLayer({
-//       'id': 'pedestrian_volume',
-//       'source': 'pedestrian-volume', //name of source
-//       'source-layer': 'Signalized_Intersection_Traff-4ypaqa', //name of tileset
-//       'type': 'circle',
-//       'paint': {
-//         //Add data-driven styles for circle-color
-//         'circle-color': {
-//           property: '8HrPedVol',
-//           type: 'interval',
-//           stops: colorList
-//         },
-//         //Add data-driven styles for circle radius
-//         'circle-radius': 10,
-//         'circle-opacity': 0.8
-//       }
-//     });
-//     // Add zoom and rotation controls to the map.
-//     map.addControl(new mapboxgl.Navigation({
-//       'position': 'top-left'
-//     }));
-
-//     // When a click event occurs near a place, open a popup at the location of
-//     // the feature, with description HTML from its properties.
-//     map.on('click', function(e) {
-//       var features = map.queryRenderedFeatures(e.point, {
-//         layers: ['pedestrian_volume']
-//       });
-
-//       if (!features.length) {
-//         return;
-//       }
-
-//       var feature = features[0];
-
-//       // Populate the popup and set its coordinates
-//       // based on the feature found.
-//       var popup = new mapboxgl.Popup()
-//         .setLngLat(feature.geometry.coordinates)
-//         .setHTML('<div id="popup" class="popup" style="z-index: 10;"> <h5> Detail: </h5>' +
-//           '<ul class="list-group">' +
-//           '<li class="list-group-item"> Date: ' + feature.properties['Count Date'] + " </li>" +
-//           '<li class="list-group-item"> Vehicle Count: ' + feature.properties['8HrVehVol'] + " </li>" +
-//           '<li class="list-group-item"> Pedestrian Count: ' + feature.properties['8HrPedVol'] + " </li>" +
-//           '</ul> </div>')
-//         .addTo(map);
-//     });
-
-//     // Use the same approach as above to indicate that the symbols are clickable
-//     // by changing the cursor style to 'pointer'.
-//     map.on('mousemove', function(e) {
-//       var features = map.queryRenderedFeatures(e.point, {
-//         layers: ['pedestrian_volume']
-//       });
-//       map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
-//     });
-//   });
   </script>
 <script>
     
@@ -447,6 +286,9 @@ map.on('mousemove', function (e) {
         JSON.stringify(e.point) + '<br />' +
             // e.lngLat is the longitude, latitude geographical position of the event
         JSON.stringify(e.lngLat);
+        console.log(JSON.stringify(e.point));
+        console.log(JSON.stringify(e.lngLat));
+    
 });    
     
     
