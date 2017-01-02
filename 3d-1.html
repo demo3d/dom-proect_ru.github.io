@@ -20,8 +20,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaW5mb2RpcnNldmVuIiwiYSI6ImNpeGYydDF3eDAwNXEyd
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
-    center: [-87.61694, 41.86625],
-    zoom: 15.99,
+    center: [24, 50],
+    zoom: 13.9,
     pitch: 40,
     bearing: 20
 });
@@ -32,7 +32,7 @@ map.on('load', function() {
     // https://gist.github.com/ryanbaumann/a7d970386ce59d11c16278b90dde094d
     map.addSource("museumData", {
         'type': 'geojson',
-        'data': 'https://www.mapbox.com/mapbox-gl-js/assets/data/indoor-3d-map.geojson'
+        'data': '/indoor-3d-map.geojson'
     });
 
     map.addLayer({
