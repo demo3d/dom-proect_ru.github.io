@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiaW5mb2RpcnNldmVuIiwiYSI6ImNpeGYydDF3eDAwNXEydG1nMGZpb3BkbHUifQ.MfksQpMsResB7x7On2XtiA';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/light-v9',
+    center: [-90.96, -0.47],
+    zoom: 8
+});
+
+map.on('load', function () {
+
+    // add geojson data as a new source
+    map.addSource("symbols", {
+        "type": "geojson",
+        "data": {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -91.395263671875,
+                            -0.9145729757782163
+
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -90.32958984375,
+                            -0.6344474832838974
+                        ]
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            -91.34033203125,
+                            0.01647949196029245
+                        ]
+                    }
+                }
+            ]
+        }
+    });
+
+    // add source as a layer and apply some styles
+    map.addLayer({
+        "id": "symbols",
+        "type": "symbol",
+        "source": "symbols",
+        "layout": {
+            "icon-image": "rocket-15"
+        },
+        "paint": {}
+    });
+});
+
+map.on('click', function (e) {
+    // Use queryRenderedFeatures to get features at a click event's point
+    // Use layer option to avoid getting results from other layers
+    var features = map.queryRenderedFeatures(e.point, { layers: ['symbols'] });
+    // if there are features within the given radius of the click event,
+    // fly to the location of the click event
+    if (features.length) {
+        // Get coordinates from the symbol and center the map on those coordinates
+        map.flyTo({center: features[0].geometry.coordinates});
+    }
+});
+
+
+// Use the same approach as above to indicate that the symbols are clickable
+// by changing the cursor style to 'pointer'.
+map.on('mousemove', function (e) {
+    var features = map.queryRenderedFeatures(e.point, { layers: ['symbols'] });
+    map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+});
+</script>
+
+</body>
+</html>
