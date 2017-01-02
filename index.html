@@ -247,7 +247,7 @@
     zoom: 13 // starting zoom
 });
 
-        map.on('load', function () {
+    map.on('load', function () {
     map.addSource("points", {
         "type": "geojson",
         "data": {
@@ -307,62 +307,6 @@ map.addControl(nav, 'top-left');
 //     zoom: 11 // starting zoom
 // });
 
-    map.on('load', function () {
-    map.addSource("points", {
-        "type": "geojson",
-        "data": {
-            "type": "FeatureCollection",
-            "features": [{
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [-77.03238901390978, 38.913188059745586]
-                },
-                "properties": {
-                    "title": "Беседка на набережной",
-                    "icon": "monument"
-                }
-            }, {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [1.4, 1.76]
-                },
-                "properties": {
-                    "title": "Заводь SF",
-                    "icon": "harbor"
-                }
-            }]
-        }
-    });
-
-    map.addLayer({
-        "id": "points",
-        "type": "symbol",
-        "source": "points",
-        "layout": {
-            "icon-image": "{icon}-15",
-            "text-field": "{title}",
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top"
-        }
-    });
-});
-    
-// map.on('load', function() {
-// //     basic
-//     console.log('load');
-// //   map.addSource('terrain-data', {
-// //     type: 'vector',
-// //     url: 'mapbox://mapbox.mapbox-terrain-v2'
-// //   });
-// });    
-    
-// function onMapClick(e) {
-//     console.log("You clicked the map at " + e);
-// }
-// map.on('click', onMapClick);
     
 // navigator.geolocation.watchPosition(
 //   function(position) {
@@ -394,12 +338,12 @@ for (var i = 0; i < inputs.length; i++) {
 //     .addTo(map);
 
 // create the popup
-var popup2 = new mapboxgl.Popup({offset:[-30, 30]})
+var popup2 = new mapboxgl.Popup({offset:[30, 30]})
     .setText('Construction on the Washington Monument began in 1848.');
 
 // create DOM element for the marker
 var el = document.createElement('div');
-el.id = 'marker123';
+el.id = 'marker';
 
 // create the marker
 new mapboxgl.Marker(el, {offset:[-25, -25]})
