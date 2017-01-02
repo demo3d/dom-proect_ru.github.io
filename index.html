@@ -35,12 +35,11 @@
             border-radius: 50%;
             cursor: pointer;
             padding: 0;
+            top: -38px;
         }        
     </style>
 </head>
 <body>
-
-    
 
     <div id='menu'>
         <input id='basic' type='radio' name='rtoggle' value='basic' checked='checked'>
@@ -256,16 +255,6 @@
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [127.51806616036646, 50.25625735450669]
-                },
-                "properties": {
-                    "title": "Беседка на набережной",
-                    "icon": "monument"
-                }
-            }, {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
                     "coordinates": [127.53406204201139, 50.26381282364423]
                 },
                 "properties": {
@@ -274,6 +263,23 @@
                 }
             }]
         }
+        
+    map.addSource("points", {
+        "type": "geojson",
+        "data": {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [127.51806616036646, 50.25625735450669]
+                },
+                "properties": {
+                    "title": "Беседка на набережной",
+                    "icon": "monument"
+                }
+            }]
+        }        
     });
 
     map.addLayer({
@@ -339,7 +345,7 @@ for (var i = 0; i < inputs.length; i++) {
 
 // create the popup
 var popup2 = new mapboxgl.Popup({offset:[30, 30]})
-    .setText('Construction on the Washington Monument began in 1848.');
+    .setText('Памятник.');
 
 // create DOM element for the marker
 var el = document.createElement('div');
@@ -350,6 +356,20 @@ new mapboxgl.Marker(el, {offset:[-25, -25]})
     .setLngLat([127.53406204201139, 50.26381282364423])
     .setPopup(popup2) // sets a popup on this marker
     .addTo(map);
+
+var popup1 = new mapboxgl.Popup({offset:[30, 30]})
+    .setText('2011.');
+
+// create DOM element for the marker
+var el1 = document.createElement('div');
+el.id = 'marker1';
+
+// create the marker
+new mapboxgl.Marker(el1, {offset:[-25, -25]})
+    .setLngLat([127.51806616036646, 50.25625735450669])
+    .setPopup(popup2) // sets a popup on this marker
+    .addTo(map);
+    
     
 </script>
 <div id="legend" class="legend">
