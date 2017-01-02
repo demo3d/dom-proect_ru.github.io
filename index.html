@@ -40,7 +40,7 @@
     </style>
 </head>
 <body>
-
+    <div id='info'></div>
     <div id='menu'>
         <input id='basic' type='radio' name='rtoggle' value='basic' checked='checked'>
         <label for='basic'>basic</label>
@@ -437,6 +437,18 @@ map.on('mousemove', function (e) {
     var features = map.queryRenderedFeatures(e.point, { layers: ['places'] });
     map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
 });
+
+    
+
+map.on('mousemove', function (e) {
+    document.getElementById('info').innerHTML =
+        // e.point is the x, y coordinates of the mousemove event relative
+        // to the top-left corner of the map
+        JSON.stringify(e.point) + '<br />' +
+            // e.lngLat is the longitude, latitude geographical position of the event
+        JSON.stringify(e.lngLat);
+});    
+    
     
 </script>
 <!-- <div id="legend" class="legend">
