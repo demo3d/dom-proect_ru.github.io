@@ -76,7 +76,7 @@
 });
 
     map.on('load', function () {
-    map.addSource("points1", {
+    map.addSource("points", {
         "type": "geojson",
         "data": {
             "type": "FeatureCollection",
@@ -151,6 +151,38 @@ for (var i = 0; i < inputs.length; i++) {
     inputs[i].onclick = switchLayer;
 }
 
+ map.on('load', function () {
+    map.addSource("points", {
+        "type": "geojson",
+        "data": {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [127.53446204201139, 50.26381282364423]
+                },
+                "properties": {
+                    "title": "Здание",
+                    "icon": "harbor"
+                }
+            }]
+        }
+    });
+        
+    map.addLayer({
+        "id": "points1",
+        "type": "symbol",
+        "source": "points",
+        "layout": {
+            "icon-image": "{icon}-15",
+            "text-field": "{title}",
+            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            "text-offset": [0, 0.6],
+            "text-anchor": "top"
+        }
+    });
+});
     
 // var popup1 = new mapboxgl.Popup({closeOnClick: true})
 //     .setLngLat([50, 127])
@@ -171,18 +203,18 @@ for (var i = 0; i < inputs.length; i++) {
 //     .setPopup(popup2) // sets a popup on this marker
 //     .addTo(map);
 
-// var popup1 = new mapboxgl.Popup({offset:[30, 30]})
-//     .setText('2011.');
+var popup1 = new mapboxgl.Popup({offset:[0, 30]})
+    .setText('2011.');
 
-// // create DOM element for the marker
-// var el1 = document.createElement('div');
-// el.id = 'marker1';
+// create DOM element for the marker
+var el1 = document.createElement('div');
+el.id = 'marker1';
 
-// // create the marker
-// new mapboxgl.Marker(el1, {offset:[-25, -25]})
-//     .setLngLat([127.51806616036646, 50.25625735450669])
-//     .setPopup(popup2) // sets a popup on this marker
-//     .addTo(map);
+// create the marker
+new mapboxgl.Marker(el1, {offset:[-25, -25]})
+    .setLngLat([127.51806616036646, 50.25625735450669])
+    .setPopup(popup1) // sets a popup on this marker
+    .addTo(map);
     
 
 map.on('load', function () {
@@ -257,19 +289,19 @@ map.on('load', function () {
 });
 // When a click event occurs near a place, open a popup at the location of
 // the feature, with description HTML from its properties.
-map.on('click', function (e) {
-    var features = map.queryRenderedFeatures(e.point, { layers: ['places'] });
-    if (!features.length) {
-        return;
-    }
-    var feature = features[0];
-    // Populate the popup and set its coordinates
-    // based on the feature found.
-    var popup = new mapboxgl.Popup()
-        .setLngLat(feature.geometry.coordinates)
-        .setHTML(feature.properties.description)
-        .addTo(map);
-});
+// map.on('click', function (e) {
+//     var features = map.queryRenderedFeatures(e.point, { layers: ['places'] });
+//     if (!features.length) {
+//         return;
+//     }
+//     var feature = features[0];
+//     // Populate the popup and set its coordinates
+//     // based on the feature found.
+//     var popup = new mapboxgl.Popup()
+//         .setLngLat(feature.geometry.coordinates)
+//         .setHTML(feature.properties.description)
+//         .addTo(map);
+// });
 // Use the same approach as above to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
 map.on('mousemove', function (e) {
@@ -293,14 +325,5 @@ map.on('mousemove', function (e) {
     
     
 </script>
-<!-- <div id="legend" class="legend">
-    <h4>Pedestrian Traffic</h4>
-    <div><span style="background-color: #44505A"></span>34615</div>
-    <div><span style="background-color: #416562"></span>20464</div>
-    <div><span style="background-color: #50795F"></span>13919</div>
-    <div><span style="background-color: #738856"></span>8056</div>
-    <div><span style="background-color: #A29354"></span>4132</div>
-    <div><span style="background-color: #D49A66"></span>1614</div>
-  </div> -->
 </body>
 </html>
