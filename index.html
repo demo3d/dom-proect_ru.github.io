@@ -268,6 +268,8 @@
         }
     });
 });
+
+// https://demo3d.github.io/dom-proect_ru.github.io/#7.07/50.132/127.594/12.2/57    
     
 var nav = new mapboxgl.NavigationControl();
 map.addControl(nav, 'top-left');
@@ -303,7 +305,7 @@ var inputs = layerList.getElementsByTagName('input');
 
 function switchLayer(layer) {
     var layerId = layer.target.id;
-    map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9');
+    map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9?optimize=true');
 }
 
 for (var i = 0; i < inputs.length; i++) {
@@ -317,35 +319,127 @@ for (var i = 0; i < inputs.length; i++) {
 //     .addTo(map);
 
 // create the popup
-var popup2 = new mapboxgl.Popup({offset:[30, 30]})
-    .setText('Памятник.');
+// var popup2 = new mapboxgl.Popup({offset:[30, 30]})
+//     .setText('Памятник.');
 
-// create DOM element for the marker
-var el = document.createElement('div');
-el.id = 'marker';
+// // create DOM element for the marker
+// var el = document.createElement('div');
+// el.id = 'marker';
 
-// create the marker
-new mapboxgl.Marker(el, {offset:[-25, -25]})
-    .setLngLat([127.53406204201139, 50.26381282364423])
-    .setPopup(popup2) // sets a popup on this marker
-    .addTo(map);
+// // create the marker
+// new mapboxgl.Marker(el, {offset:[-25, -25]})
+//     .setLngLat([127.53406204201139, 50.26381282364423])
+//     .setPopup(popup2) // sets a popup on this marker
+//     .addTo(map);
 
-var popup1 = new mapboxgl.Popup({offset:[30, 30]})
-    .setText('2011.');
+// var popup1 = new mapboxgl.Popup({offset:[30, 30]})
+//     .setText('2011.');
 
-// create DOM element for the marker
-var el1 = document.createElement('div');
-el.id = 'marker1';
+// // create DOM element for the marker
+// var el1 = document.createElement('div');
+// el.id = 'marker1';
 
-// create the marker
-new mapboxgl.Marker(el1, {offset:[-25, -25]})
-    .setLngLat([127.51806616036646, 50.25625735450669])
-    .setPopup(popup2) // sets a popup on this marker
-    .addTo(map);
+// // create the marker
+// new mapboxgl.Marker(el1, {offset:[-25, -25]})
+//     .setLngLat([127.51806616036646, 50.25625735450669])
+//     .setPopup(popup2) // sets a popup on this marker
+//     .addTo(map);
     
+
+map.on('load', function () {
+    // Add a GeoJSON source containing place coordinates and information.
+    map.addSource("places1", {
+        "type": "geojson",
+        "data": {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "properties": {
+                    "description": "<strong>Make it Mount Pleasant</strong><p><a href=\"http://www.mtpleasantdc.com/makeitmtpleasant\" target=\"_blank\" title=\"Opens in a new window\">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>",
+                    "icon": "theatre"
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [127.53406204201139, 50.26381282364423]
+                }
+            }, {
+                "type": "Feature",
+                "properties": {
+                    "description": "<strong>Big Backyard Beach Bash and Wine Fest</strong><p>EatBar (2761 Washington Boulevard Arlington VA) is throwing a <a href=\"http://tallulaeatbar.ticketleap.com/2012beachblanket/\" target=\"_blank\" title=\"Opens in a new window\">Big Backyard Beach Bash and Wine Fest</a> on Saturday, serving up conch fritters, fish tacos and crab sliders, and Red Apron hot dogs. 12:00-3:00 p.m. $25.grill hot dogs.</p>",
+                    "icon": "bar"
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [127.55406204201139, 50.24381282364423]
+                }
+            }, {
+                "type": "Feature",
+                "properties": {
+                    "description": "<strong>Ballston Arts & Crafts Market</strong><p>The <a href=\"http://ballstonarts-craftsmarket.blogspot.com/\" target=\"_blank\" title=\"Opens in a new window\">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p>",
+                    "icon": "art-gallery"
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [127.53706204201139, 50.16381282364423]
+                }
+            }, {
+                "type": "Feature",
+                "properties": {
+                    "description": "<strong>Seersucker Bike Ride and Social</strong><p>Feeling dandy? Get fancy, grab your bike, and take part in this year's <a href=\"http://dandiesandquaintrelles.com/2012/04/the-seersucker-social-is-set-for-june-9th-save-the-date-and-start-planning-your-look/\" target=\"_blank\" title=\"Opens in a new window\">Seersucker Social</a> bike ride from Dandies and Quaintrelles. After the ride enjoy a lawn party at Hillwood with jazz, cocktails, paper hat-making, and more. 11:00-7:00 p.m.</p>",
+                    "icon": "bicycle"
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [127.52406204201139, 50.27381282364423]
+                }
+            }, {
+                "type": "Feature",
+                "properties": {
+                    "description": "<strong>Capital Pride Parade</strong><p>The annual <a href=\"http://www.capitalpride.org/parade\" target=\"_blank\" title=\"Opens in a new window\">Capital Pride Parade</a> makes its way through Dupont this Saturday. 4:30 p.m. Free.</p>",
+                    "icon": "star"
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [126.53406204201139, 51.26381282364423]
+                }
+            }]
+        }
+    });
+    // Add a layer showing the places.
+    map.addLayer({
+        "id": "places1",
+        "type": "symbol",
+        "source": "places",
+        "layout": {
+            "icon-image": "{icon}-15",
+            "icon-allow-overlap": true
+        }
+    });
+});
+// When a click event occurs near a place, open a popup at the location of
+// the feature, with description HTML from its properties.
+map.on('click', function (e) {
+    var features = map.queryRenderedFeatures(e.point, { layers: ['places'] });
+    if (!features.length) {
+        return;
+    }
+    var feature = features[0];
+    // Populate the popup and set its coordinates
+    // based on the feature found.
+    var popup = new mapboxgl.Popup()
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML(feature.properties.description)
+        .addTo(map);
+});
+// Use the same approach as above to indicate that the symbols are clickable
+// by changing the cursor style to 'pointer'.
+map.on('mousemove', function (e) {
+    var features = map.queryRenderedFeatures(e.point, { layers: ['places'] });
+    map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+});
     
 </script>
-<div id="legend" class="legend">
+<!-- <div id="legend" class="legend">
     <h4>Pedestrian Traffic</h4>
     <div><span style="background-color: #44505A"></span>34615</div>
     <div><span style="background-color: #416562"></span>20464</div>
@@ -353,6 +447,6 @@ new mapboxgl.Marker(el1, {offset:[-25, -25]})
     <div><span style="background-color: #738856"></span>8056</div>
     <div><span style="background-color: #A29354"></span>4132</div>
     <div><span style="background-color: #D49A66"></span>1614</div>
-  </div>
+  </div> -->
 </body>
 </html>
