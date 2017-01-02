@@ -237,7 +237,7 @@
 });
 
     map.on('load', function () {
-    map.addSource("points", {
+    map.addSource("points1", {
         "type": "geojson",
         "data": {
             "type": "FeatureCollection",
@@ -256,7 +256,7 @@
     });
         
     map.addLayer({
-        "id": "points",
+        "id": "points1",
         "type": "symbol",
         "source": "points",
         "layout": {
