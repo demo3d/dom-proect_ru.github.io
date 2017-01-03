@@ -5,7 +5,9 @@
     <title></title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet' />
+<!--     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet' /> -->
+    <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
+    
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:3em; bottom:0; width:100%; }
@@ -18,9 +20,9 @@
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiaW5mb2RpcnNldmVuIiwiYSI6ImNpeGYydDF3eDAwNXEydG1nMGZpb3BkbHUifQ.MfksQpMsResB7x7On2XtiA';
 var map = new mapboxgl.Map({
-    style: 'mapbox://styles/mapbox/bright-v9',
-    center: [24.50, 50],
-    zoom: 15,
+//     style: 'mapbox://styles/mapbox/bright-v9',
+//     center: [24.50, 50],
+//     zoom: 15,
     container: 'map',
     hash: true
 });
