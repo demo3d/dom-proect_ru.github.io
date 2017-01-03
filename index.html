@@ -5,9 +5,9 @@
     <title></title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet' />
-    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v0.16.0/mapbox-gl-draw.css' type='text/css' />
+<!--     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v0.16.0/mapbox-gl-draw.css' type='text/css' /> -->
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.js'></script>
-    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v0.16.0/mapbox-gl-draw.js'></script>
+<!--     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v0.16.0/mapbox-gl-draw.js'></script> -->
 
 <!--     <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' /> -->
     
@@ -17,6 +17,7 @@
     </style>
 </head>
 <body>
+    <div id='fly'><b>fly</b></div>
     <div id='info'></div>
 
 <div id='map'></div>
@@ -65,8 +66,18 @@ map.on('mousemove', function (e) {
     JSON.stringify(e.lngLat);
 });       
 
-var Draw = new MapboxDraw();
-map.addControl(Draw)    
+document.getElementById('fly').addEventListener('click', function () {
+    // Fly to a random location by offsetting the point -74.50, 40
+    // by up to 5 degrees.
+    map.flyTo({
+        center: [
+            -74.50 + (Math.random() - 0.5) * 10,
+            40 + (Math.random() - 0.5) * 10]
+    });
+});    
+    
+// var Draw = new MapboxDraw();
+// map.addControl(Draw)    
     
 </script>
 
