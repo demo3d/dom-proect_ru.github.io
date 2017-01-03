@@ -12,13 +12,14 @@
     </style>
 </head>
 <body>
+    <div id='info'></div>
 
 <div id='map'></div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiaW5mb2RpcnNldmVuIiwiYSI6ImNpeGYydDF3eDAwNXEydG1nMGZpb3BkbHUifQ.MfksQpMsResB7x7On2XtiA';
 var map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/light-v9',
-    center: [-74.0066, 40.7135],
+    center: [24.50, 50],
     zoom: 15,
     pitch: 45,
     bearing: -17.6,
@@ -49,6 +50,16 @@ map.on('load', function() {
         }
     });
 });
+    
+var nav = new mapboxgl.NavigationControl();
+map.addControl(nav, 'top-left');
+
+map.on('mousemove', function (e) {
+    document.getElementById('info').innerHTML =
+    JSON.stringify(e.point) + '<br />' +
+    JSON.stringify(e.lngLat);
+});       
+    
 </script>
 
 </body>
