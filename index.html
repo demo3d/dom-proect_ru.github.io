@@ -55,15 +55,14 @@
   </script>
 <script>
     
-    var token = 'pk.eyJ1IjoiaW5mb2RpcnNldmVuIiwiYSI6ImNpeGYydDF3eDAwNXEydG1nMGZpb3BkbHUifQ.MfksQpMsResB7x7On2XtiA';
+var token = 'pk.eyJ1IjoiaW5mb2RpcnNldmVuIiwiYSI6ImNpeGYydDF3eDAwNXEydG1nMGZpb3BkbHUifQ.MfksQpMsResB7x7On2XtiA';
 //     mapboxgl.accessToken = 'pk.eyJ1IjoiamVzc3RlbGZvcmQiLCJhIjoiY2l3M3d6OTlrMDA0aTJ6cXNraHByMzdiZyJ9.MAfasjh0CP0D6_OHAYAGaw';
-    mapboxgl.accessToken = token;
+mapboxgl.accessToken = token;
 
-    var map = new mapboxgl.Map({
-    attributionControl: true,
+var map = new mapboxgl.Map({
+//     attributionControl: true,
     container: 'map', // container id
     style: 'mapbox://styles/mapbox/bright-v9?optimize=true', //stylesheet location streets
-        
 //    style: 'mapbox://styles/mapbox/satellite-streets-v9?optimize=true', //stylesheet location
 //    style: 'mapbox://styles/mapbox/outdoors-v9', //stylesheet location
     center: [24.50, 50], // starting position
@@ -109,7 +108,7 @@ for (var i = 0; i < inputs.length; i++) {
     });
         
     map.addLayer({
-        "id": "points1",
+        "id": "points",
         "type": "symbol",
         "source": "points",
         "layout": {
@@ -120,6 +119,28 @@ for (var i = 0; i < inputs.length; i++) {
             "text-anchor": "top"
         }
     });
+     
+    map.addLayer({
+        'id': '3d-buildings',
+        'source': 'composite',
+        'source-layer': 'building',
+        'filter': ['==', 'extrude', 'true'],
+        'type': 'fill-extrusion',
+        'minzoom': 15,
+        'paint': {
+            'fill-extrusion-color': '#aaa',
+            'fill-extrusion-height': {
+                'type': 'identity',
+                'property': 'height'
+            },
+            'fill-extrusion-base': {
+                'type': 'identity',
+                'property': 'min_height'
+            },
+            'fill-extrusion-opacity': .6
+        }
+    });     
+     
 });
 
     map.on('mousemove', function (e) {
@@ -129,8 +150,8 @@ for (var i = 0; i < inputs.length; i++) {
         JSON.stringify(e.point) + '<br />' +
             // e.lngLat is the longitude, latitude geographical position of the event
         JSON.stringify(e.lngLat);
-        console.log(JSON.stringify(e.point));
-        console.log(JSON.stringify(e.lngLat));
+//         console.log(JSON.stringify(e.point));
+//         console.log(JSON.stringify(e.lngLat));
     
 });    
     
