@@ -26,7 +26,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaW5mb2RpcnNldmVuIiwiYSI6ImNpeGYydDF3eDAwNXEyd
 var map = new mapboxgl.Map({
 //     style: 'mapbox://styles/mapbox/streets-v9?optimize=true',
     style: 'mapbox://styles/infodirseven/cixf3q7ss00ez2qp32k9jhvw2',
-    center: [24.50, 50],
+    center: [0, 0],
     zoom: 15,
     container: 'map',
     hash: true
@@ -70,9 +70,7 @@ document.getElementById('fly').addEventListener('click', function () {
     // Fly to a random location by offsetting the point -74.50, 40
     // by up to 5 degrees.
     map.flyTo({
-        center: [
-            -0.50 + (Math.random() - 0.5) * 10,
-            0.4 + (Math.random() - 0.5) * 10]
+        center: [0.2, 1.5]
     });
 });    
     
