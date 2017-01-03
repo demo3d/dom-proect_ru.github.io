@@ -17,7 +17,8 @@
     </style>
 </head>
 <body>
-    <div id='fly'><b>fly</b></div>
+    <span id='fly'><b>Беседка </b></span>
+    <span id='fly1'><b>Офис </b></span>
     <div id='info'></div>
 
 <div id='map'></div>
@@ -69,10 +70,19 @@ map.on('mousemove', function (e) {
 document.getElementById('fly').addEventListener('click', function () {
     // Fly to a random location by offsetting the point -74.50, 40
     // by up to 5 degrees.
+//     беседка
+//     "lng":127.51806202653364,"lat":50.25623509575192
     map.flyTo({
-        center: [127.6182, 50.3652]
+        center: [127.51806202653364, 50.25623509575192]
     });
 });    
+
+document.getElementById('fly2').addEventListener('click', function () {
+//     офис
+    map.flyTo({
+        center: [127.51762, 50.26754]
+    });
+});     
     
 // var Draw = new MapboxDraw();
 // map.addControl(Draw)    
