@@ -62,6 +62,9 @@ map.on('mousemove', function (e) {
     JSON.stringify(e.point) + '<br />' +
     JSON.stringify(e.lngLat);
 });       
+
+var Draw = new MapboxDraw();
+map.addControl(Draw)    
     
 </script>
 
