@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    <title></title>
+    <title>mapbox-gl-js</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.29.0/mapbox-gl.css' rel='stylesheet' />
 <!--     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v0.16.0/mapbox-gl-draw.css' type='text/css' /> -->
@@ -14,6 +14,7 @@
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:5em; bottom:0; width:100%; }
+        span { cursor: pointer; }
     </style>
 </head>
 <body>
@@ -74,7 +75,7 @@ document.getElementById('fly').addEventListener('click', function () {
 //     "lng":127.51806202653364,"lat":50.25623509575192
     map.flyTo({
         curve: 0.3,
-        speed: 0.6,
+        speed: 0.2,
         bearing: 41,
         pitch: 45,
 //         screenSpeed: 4,
@@ -87,7 +88,7 @@ document.getElementById('fly1').addEventListener('click', function () {
 //     офис 50.26541/127.51938
     map.flyTo({
         curve: 0.5,
-//         speed: 0.3,
+        speed: 0.3,
         bearing: 169.8,
         pitch: 60,
 //         screenSpeed: 24,
